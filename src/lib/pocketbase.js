@@ -137,6 +137,32 @@ export async function experiences(lang = 'el') {
   return { current, archive };
 }
 
+// Homepage hero slides, chosen in Work (collection hero_slides, site="panorama").
+// Fallback when none are set: current experiences that have a hero image, else the venue photo.
+// Returns [{image, title, href, status}] — at most 5.
+export async function heroSlides(lang, current, detail, fallbackImage) {
+  const fromExp = (p) => (p ? { title: p.title, href: detail(p.slug), status: p.status } : {});
+  let rows = [];
+  try {
+    const qs = new URLSearchParams({ filter: 'site="panorama" && active=true', sort: 'sort,created', expand: 'image', perPage: '10' });
+    rows = (await getJson('/api/collections/hero_slides/records?' + qs)).items || [];
+  } catch (e) {
+    if (/HTTP 404/.test(e?.message || '')) console.warn('[pocketbase] hero_slides collection not created yet; using automatic hero');
+    else recordError(`hero_slides: ${e?.message || e}`);
+  }
+  const chosen = rows
+    .map((r) => {
+      const p = current.find((x) => x.id === r.production);
+      const base = fromExp(p);
+      const caption = (lang === 'en' ? r.caption_en : r.caption) || r.caption;
+      return { image: mediaUrl(r.expand?.image), title: caption || base.title || '', href: r.link || base.href || '', status: caption && !p ? '' : base.status || '' };
+    })
+    .filter((x) => x.image);
+  if (chosen.length) return chosen.slice(0, 5);
+  const auto = current.filter((p) => p.hero).slice(0, 5).map((p) => ({ image: p.hero, ...fromExp(p) }));
+  return auto.length ? auto : fallbackImage ? [{ image: fallbackImage, title: '', href: '', status: '' }] : [];
+}
+
 export async function health() {
   lastErrors.length = 0;
   const [venues, productions, runs] = await Promise.all([

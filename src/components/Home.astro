@@ -1,23 +1,25 @@
 ---
 import Card from './Card.astro';
+import HeroSlides from './HeroSlides.astro';
 import { routes, t } from '../lib/i18n.js';
-import { experiences, mediaById } from '../lib/pocketbase.js';
+import { experiences, mediaById, heroSlides } from '../lib/pocketbase.js';
 const { lang = 'el' } = Astro.props;
 const L = t[lang];
 const R = routes[lang];
 const { current } = await experiences(lang);
-// Hero: the hero image of the current experience if it has one, otherwise the venue photo.
+// Hero: slides chosen in Work → «Hero αρχικής» (Panorama); otherwise current hero images, else the venue photo.
 const facade = await mediaById('h7tjyr00agl3133');
-const hero = current.find((p) => p.hero)?.hero || facade;
+const slides = await heroSlides(lang, current, R.detail, facade);
 ---
 <main>
   <section class="hero">
-    {hero && <img class="hero-img" src={hero} alt="" fetchpriority="high"/>}
+    <HeroSlides slides={slides} labels={L.status} lang={lang}/>
     <div class="hero-shade"></div>
     <div class="wrap hero-content">
       <h1>{L.heroTitle}</h1>
       <p class="hero-lead">{L.heroLead}</p>
       <div class="actions"><a class="btn btn-light" href={R.list}>{L.heroCta1}</a><a class="btn btn-line" href={R.schools}>{L.heroCta2}</a></div>
+      <HeroSlides slides={slides} labels={L.status} lang={lang} part="captions"/>
     </div>
   </section>
 
