@@ -1,4 +1,5 @@
 ---
+import Gallery from './Gallery.astro';
 import { routes, t } from '../lib/i18n.js';
 import { formatDate, youtubeEmbed, ticketUrl } from '../lib/pocketbase.js';
 const { p, lang = 'el' } = Astro.props;
@@ -20,6 +21,7 @@ const tix = ticketUrl(p);
       {p.description && <div class="rich" set:html={p.description}/>}
     </div>
   </div>
+  <Gallery images={p.gallery} lang={lang}/>
   {trailer && <section class="block"><h2>{L.trailer}</h2><div class="video"><iframe src={trailer} title={`${p.title} — trailer`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div></section>}
   <a class="text-link back" href={R.list}>{L.back}</a>
 </main>

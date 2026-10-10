@@ -96,7 +96,7 @@ export const ticketUrl = (p) => (p.status === 'past' ? '' : validUrl(p.ticketing
 export async function experiences(lang = 'el') {
   const [venues, productions, runs, spaces] = await Promise.all([
     list('venues', { filter: 'editorial_status="published"' }),
-    list('productions', { filter: 'editorial_status="published"', expand: 'poster,hero_image' }),
+    list('productions', { filter: 'editorial_status="published"', expand: 'poster,hero_image,gallery' }),
     list('runs'),
     list('spaces'),
   ]);
@@ -121,6 +121,7 @@ export async function experiences(lang = 'el') {
         description: t.description || p.description || '',
         poster: mediaUrl(p.expand?.poster),
         hero: mediaUrl(p.expand?.hero_image),
+        gallery: (p.expand?.gallery || []).map((m) => ({ src: mediaUrl(m), alt: m.title || '' })).filter((g) => g.src),
         presentations,
         start: day(p.upcoming_date) || presentations[0]?.start || '',
         end: presentations.map((x) => x.end).filter(Boolean).sort().pop() || '',
