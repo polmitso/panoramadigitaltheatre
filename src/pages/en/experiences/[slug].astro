@@ -1,0 +1,10 @@
+---
+import Site from '../../../layouts/Site.astro';
+import Detail from '../../../components/Detail.astro';
+import { experiences } from '../../../lib/pocketbase.js';
+import { routes } from '../../../lib/i18n.js';
+const { current, archive } = await experiences('en');
+const p = [...current, ...archive].find((x) => x.slug === Astro.params.slug);
+if (!p) return Astro.redirect(routes['en'].list, 302);
+---
+<Site lang="en" title={p.title}><Detail p={p} lang="en"/></Site>

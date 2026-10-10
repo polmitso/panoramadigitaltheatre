@@ -1,0 +1,19 @@
+---
+import Card from './Card.astro';
+import { t } from '../lib/i18n.js';
+import { experiences } from '../lib/pocketbase.js';
+const { lang = 'el' } = Astro.props;
+const L = t[lang];
+const { current, archive } = await experiences(lang);
+---
+<main class="wrap page">
+  <header class="page-head"><h1>{L.listTitle}</h1><p class="lead">{L.listLead}</p></header>
+  <section class="block">
+    <h2>{L.nowAndSoon}</h2>
+    {current.length ? <div class="cards-large">{current.map((p) => <Card p={p} lang={lang}/>)}</div> : <p class="empty">{L.empty}</p>}
+  </section>
+  {archive.length > 0 && <section class="block">
+    <h2>{L.archive}</h2>
+    <div class="cards-small">{archive.map((p) => <Card p={p} lang={lang} size="small"/>)}</div>
+  </section>}
+</main>

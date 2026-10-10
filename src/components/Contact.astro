@@ -1,0 +1,20 @@
+---
+import { t } from '../lib/i18n.js';
+import { venueInfo } from '../lib/pocketbase.js';
+const { lang = 'el' } = Astro.props;
+const L = t[lang];
+const v = await venueInfo();
+const q = encodeURIComponent(`${v.address || 'Λεωφόρος Μίκη Θεοδωράκη 15'}, Θεσσαλονίκη`);
+---
+<main class="wrap page">
+  <header class="page-head"><h1>{L.contactTitle}</h1><p class="lead">{L.contactLead}</p></header>
+  <div class="contact">
+    <dl class="contact-list">
+      {v.address && <div><dt>{L.address}</dt><dd>{v.address}<br/>Θεσσαλονίκη<br/><a class="text-link" href={`https://www.google.com/maps/search/?api=1&query=${q}`} target="_blank" rel="noopener">{L.map} ↗</a></dd></div>}
+      {v.phone && <div><dt>{L.phone}</dt><dd><a href={'tel:' + v.phone.replace(/\s/g, '')}>{v.phone}</a></dd></div>}
+      {v.email && <div><dt>{L.email}</dt><dd><a href={'mailto:' + v.email}>{v.email}</a></dd></div>}
+      <p class="note">{L.ticketsNote}</p>
+    </dl>
+    <div class="map"><iframe title="Map" src={`https://www.google.com/maps?q=${q}&output=embed`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</main>

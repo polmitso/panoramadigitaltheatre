@@ -1,0 +1,25 @@
+---
+import { routes, t } from '../lib/i18n.js';
+import { formatDate, youtubeEmbed, ticketUrl } from '../lib/pocketbase.js';
+const { p, lang = 'el' } = Astro.props;
+const L = t[lang];
+const R = routes[lang];
+const trailer = youtubeEmbed(p.trailer_url);
+const tix = ticketUrl(p);
+---
+<main class="wrap page">
+  <nav class="crumbs" aria-label="breadcrumb"><a href={R.home}>{L.home}</a><span>/</span><a href={R.list}>{L.nav.list}</a><span>/</span><span aria-current="page">{p.title}</span></nav>
+  <div class="detail">
+    <div class="detail-poster">{p.poster ? <img src={p.poster} alt={p.title}/> : <span>PANORAMA</span>}</div>
+    <div class="detail-body">
+      <span class:list={['status', p.status]}>{L.status[p.status]}</span>
+      <h1>{p.title}</h1>
+      {p.short_description && <p class="lead">{p.short_description}</p>}
+      {p.presentations.length > 0 && <div class="when">{p.presentations.map((x) => <div class="when-row">{x.space && <strong>{x.space}</strong>}<span>{x.start && `${L.from} ${formatDate(x.start)}`}{x.end && ` · ${L.until} ${formatDate(x.end)}`}</span></div>)}</div>}
+      {tix && <a class="btn btn-accent" href={tix} target="_blank" rel="noopener">{L.tickets} ↗</a>}
+      {p.description && <div class="rich" set:html={p.description}/>}
+    </div>
+  </div>
+  {trailer && <section class="block"><h2>{L.trailer}</h2><div class="video"><iframe src={trailer} title={`${p.title} — trailer`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div></section>}
+  <a class="text-link back" href={R.list}>{L.back}</a>
+</main>

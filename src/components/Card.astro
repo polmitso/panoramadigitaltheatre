@@ -1,0 +1,20 @@
+---
+import { routes, t } from '../lib/i18n.js';
+import { formatDate, ticketUrl } from '../lib/pocketbase.js';
+const { p, lang = 'el', size = 'large' } = Astro.props;
+const L = t[lang];
+const tix = size === 'large' ? ticketUrl(p) : '';
+const when = p.start ? `${L.from} ${formatDate(p.start)}${p.end ? ' · ' + L.until + ' ' + formatDate(p.end) : ''}` : '';
+---
+<article class:list={['card', `card-${size}`]}>
+  <a class="card-poster" href={routes[lang].detail(p.slug)} tabindex="-1" aria-hidden="true">
+    {p.poster ? <img src={p.poster} alt="" loading="lazy"/> : <span>PANORAMA</span>}
+  </a>
+  <div class="card-body">
+    <span class:list={['status', p.status]}>{L.status[p.status]}</span>
+    <h3><a href={routes[lang].detail(p.slug)}>{p.title}</a></h3>
+    {when && <p class="card-when">{when}</p>}
+    {size === 'large' && p.short_description && <p class="card-text">{p.short_description}</p>}
+    {tix && <a class="btn btn-accent" href={tix} target="_blank" rel="noopener">{L.tickets} ↗</a>}
+  </div>
+</article>

@@ -1,0 +1,22 @@
+---
+import Card from './Card.astro';
+import { t } from '../lib/i18n.js';
+import { experiences, venueInfo } from '../lib/pocketbase.js';
+const { lang = 'el' } = Astro.props;
+const L = t[lang];
+const [{ current }, venue] = await Promise.all([experiences(lang), venueInfo()]);
+const mail = venue.email ? `mailto:${venue.email}?subject=${encodeURIComponent(L.mailSubject)}` : '';
+---
+<main class="wrap page">
+  <header class="page-head"><h1>{L.schoolsTitle}</h1><p class="lead">{L.schoolsPageLead}</p></header>
+  <div class="prose">{L.schoolsBody.map((x) => <p>{x}</p>)}</div>
+  <section class="block">
+    <h2>{L.howTitle}</h2>
+    <ol class="steps">{L.how.map(([h, d], i) => <li><span class="step-n">{i + 1}</span><div><h3>{h}</h3><p>{d}</p></div></li>)}</ol>
+    <div class="actions">
+      {mail && <a class="btn btn-accent" href={mail}>{L.writeUs}</a>}
+      {venue.phone && <p class="call">{L.callUs} <a href={'tel:' + venue.phone.replace(/\s/g, '')}>{venue.phone}</a></p>}
+    </div>
+  </section>
+  {current.length > 0 && <section class="block"><h2>{L.currentTitle}</h2><div class="cards-large">{current.map((p) => <Card p={p} lang={lang}/>)}</div></section>}
+</main>
