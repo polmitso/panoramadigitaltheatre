@@ -62,7 +62,7 @@ p { margin: 0; }
 .status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; margin-right: 8px; vertical-align: 1px; }
 .status.now { color: var(--now); }
 .status.upcoming { color: var(--accent); }
-.status.past { color: var(--muted); }
+.status.past { color: #ff6b6b; }
 
 /* Hero */
 .hero { position: relative; overflow: hidden; min-height: clamp(560px, 84vh, 840px); display: flex; align-items: flex-end; background: var(--panel); }

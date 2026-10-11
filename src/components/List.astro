@@ -9,11 +9,6 @@ const { current, archive } = await experiences(lang);
 <main class="wrap page">
   <header class="page-head"><h1>{L.listTitle}</h1><p class="lead">{L.listLead}</p></header>
   <section class="block">
-    <h2>{L.nowAndSoon}</h2>
-    {current.length ? <div class="cards-large">{current.map((p) => <Card p={p} lang={lang}/>)}</div> : <p class="empty">{L.empty}</p>}
+    {current.length + archive.length ? <div class="cards-large">{[...current, ...archive].map((p) => <Card p={p} lang={lang}/>)}</div> : <p class="empty">{L.empty}</p>}
   </section>
-  {archive.length > 0 && <section class="block">
-    <h2>{L.archive}</h2>
-    <div class="cards-small">{archive.map((p) => <Card p={p} lang={lang} size="small"/>)}</div>
-  </section>}
 </main>
