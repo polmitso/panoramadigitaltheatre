@@ -6,7 +6,9 @@ import { experiences, mediaById, heroSlides } from '../lib/pocketbase.js';
 const { lang = 'el' } = Astro.props;
 const L = t[lang];
 const R = routes[lang];
-const { current } = await experiences(lang);
+const { current, archive } = await experiences(lang);
+// Finished exhibitions marked «Προτεινόμενη» in Work also stay on the home page (after the current ones, labelled ΟΛΟΚΛΗΡΩΘΗΚΕ).
+const homeItems = [...current, ...archive.filter((p) => p.featured)];
 // Hero: slides chosen in Work → «Hero αρχικής» (Panorama); otherwise current hero images, else the venue photo.
 const facade = await mediaById('h7tjyr00agl3133');
 const slides = await heroSlides(lang, current, R.detail, facade);
@@ -25,7 +27,7 @@ const slides = await heroSlides(lang, current, R.detail, facade);
 
   <section class="wrap section">
     <div class="section-head"><h2>{L.currentTitle}</h2><a class="text-link" href={R.list}>{L.allLink} →</a></div>
-    {current.length ? <div class="cards-large">{current.map((p) => <Card p={p} lang={lang}/>)}</div> : <p class="empty">{L.empty}</p>}
+    {homeItems.length ? <div class="cards-large">{homeItems.map((p) => <Card p={p} lang={lang}/>)}</div> : <p class="empty">{L.empty}</p>}
   </section>
 
   <section class="section space-section">
