@@ -106,7 +106,10 @@ export async function experiences(lang = 'el') {
     return { current: [], archive: [] };
   }
   const venueRuns = runs.filter((r) => r.venue === venue.id);
-  const ids = new Set(venueRuns.map((r) => r.production));
+  // Shown here if chosen in Work (show_on includes panorama), or — when nothing is chosen — if it has a «Πού & πότε» at Panorama.
+  const withRun = new Set(venueRuns.map((r) => r.production));
+  const explicit = (p) => Array.isArray(p.show_on) && p.show_on.length > 0;
+  const ids = new Set(productions.filter((p) => (explicit(p) ? p.show_on.includes('panorama') : withRun.has(p.id))).map((p) => p.id));
   const all = await Promise.all(
     productions.filter((p) => ids.has(p.id)).map(async (p) => {
       const t = lang === 'el' ? {} : (await list('production_translations', { filter: `production="${p.id}" && language="${lang}" && translation_status="published"`, perPage: '1' }))[0] || {};
@@ -133,7 +136,7 @@ export async function experiences(lang = 'el') {
   const rank = { now: 0, upcoming: 1 };
   const current = items
     .filter((p) => p.status !== 'past')
-    .sort((a, b) => rank[a.status] - rank[b.status] || (a.status === 'now' ? b.start.localeCompare(a.start) : a.start.localeCompare(b.start)));
+    .sort((a, b) => (Number(b.priority) || 0) - (Number(a.priority) || 0) || rank[a.status] - rank[b.status] || (a.status === 'now' ? b.start.localeCompare(a.start) : a.start.localeCompare(b.start)));
   const archive = items.filter((p) => p.status === 'past').sort((a, b) => (b.end || b.start).localeCompare(a.end || a.start));
   return { current, archive };
 }
