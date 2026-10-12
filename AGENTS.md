@@ -14,6 +14,7 @@
 - Κείμενα διεπαφής EL/EN: `src/lib/i18n.js`. Σελίδες: `src/components/*.astro`, οι διαδρομές στο `src/pages` είναι λεπτά wrappers.
 - Έλεγχος: `/health.json` → `"ok": true`.
 - Hero: `heroSlides()` + `src/components/HeroSlides.astro` (site `panorama`). Gallery: `src/components/Gallery.astro`. Umami στο `src/layouts/Site.astro`. Domain: https://panorama.com.gr
+- Newsletter: φόρμα `src/components/Newsletter.astro` (ίδια στα 3 sites, στέλνει στο videotheatre.gr/api/newsletter), επιβεβαίωση `/newsletter-ok`.
 
 ## Κανόνες εργασίας
 - Branch → `npm run build` → έλεγχος (screenshots) → merge στο `main` ως ένα πακέτο.

@@ -1,4 +1,5 @@
 ---
+import Newsletter from '../components/Newsletter.astro';
 import { routes, pairs, t } from '../lib/i18n.js';
 import { mediaById, venueInfo } from '../lib/pocketbase.js';
 const { lang = 'el', title = '' } = Astro.props;
@@ -37,6 +38,7 @@ const desc = lang === 'en'
   </nav>
 </header>
 <slot/>
+<Newsletter site="panorama" lang={lang} wrap="wrap"/>
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <div class="footer-brand">{logo && <img src={logo} alt="Panorama Digital Theatre"/>}<a href="https://videotheatre.gr" target="_blank" rel="noopener">{L.footerNote} ↗</a></div>
