@@ -77,6 +77,8 @@ const today = () => {
 
 // "Coming soon" switches to "now" by itself when its start date arrives.
 function statusOf(p, presentations) {
+  // Finished HERE: every «Πού & πότε» at Panorama has ended — even if the production now plays elsewhere.
+  if (presentations.length && presentations.every((x) => x.end && x.end < today())) return 'past';
   const s = p.display_status || 'now';
   if (s !== 'upcoming') return s;
   const start = day(p.upcoming_date) || presentations[0]?.start || '';
