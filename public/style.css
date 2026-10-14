@@ -218,3 +218,23 @@ p { margin: 0; }
 .gal-count{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:#bbb;font-size:13px;letter-spacing:.1em}
 @media(max-width:640px){.gal-grid{grid-template-columns:1fr 1fr;gap:8px}.gal-prev,.gal-next{top:auto;bottom:10px;transform:none}}
 @media(prefers-reduced-motion:reduce){.gal-item img{transition:none}}
+
+/* Πώς θα έρθετε */
+.getthere { margin-top: clamp(48px, 7vw, 88px); padding-top: clamp(32px, 5vw, 56px); border-top: 1px solid var(--line, rgba(255,255,255,.12)); }
+.getthere h2 { margin: 0 0 10px; font-size: clamp(28px, 3.4vw, 40px); }
+.gt-lead { margin: 0 0 32px; max-width: 760px; color: var(--muted); font-size: 18px; line-height: 1.6; }
+.gt-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.gt-card { background: var(--card); border: 1px solid var(--line, rgba(255,255,255,.1)); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 12px; }
+.gt-card h3 { margin: 0; font-size: 20px; }
+.gt-card p { margin: 0; line-height: 1.6; }
+.gt-icon { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.gt-time { color: var(--muted); font-size: 14px; }
+.gt-note { color: var(--muted); font-size: 13px; }
+.gt-lines span { display: block; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.gt-lines ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.gt-lines li { min-width: 40px; text-align: center; padding: 5px 9px; border-radius: 8px; border: 1px solid var(--line, rgba(255,255,255,.18)); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.gt-btn { align-self: flex-start; margin-top: 6px; }
+.gt-info { margin: 28px 0 0; font-size: 18px; }
+.gt-info a { color: inherit; font-weight: 600; }
+@media (max-width: 900px) { .gt-grid { grid-template-columns: 1fr; } }
+.gt-card .text-link { align-self: flex-start; }
