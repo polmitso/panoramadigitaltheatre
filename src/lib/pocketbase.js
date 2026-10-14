@@ -94,6 +94,11 @@ function statusOf(p, presentations) {
   return start && start <= today() ? 'now' : 'upcoming';
 }
 
+// Free-text production fields from Work, one entry per line.
+// Credits: «Ρόλος: Όνομα, Όνομα» → { role, names }; a line without «:» has only names.
+export const lines = (v) => String(v || '').split(/\r?\n/).map((x) => x.trim()).filter(Boolean);
+export const credits = (v) => lines(v).map((l) => { const i = l.indexOf(':'); return i > 0 ? { role: l.slice(0, i).trim(), names: l.slice(i + 1).trim() } : { role: '', names: l }; });
+
 export const formatDate = (d) => (d ? d.slice(8, 10) + '/' + d.slice(5, 7) + '/' + d.slice(0, 4) : '');
 export const youtubeEmbed = (url) => {
   const m = String(url || '').match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
@@ -126,7 +131,7 @@ export async function experiences(lang = 'el') {
       const t = lang === 'el' ? {} : (await list('production_translations', { filter: `production="${p.id}" && language="${lang}" && translation_status="published"`, perPage: '1' }))[0] || {};
       const presentations = venueRuns
         .filter((r) => r.production === p.id)
-        .map((r) => ({ space: spaces.find((s) => s.id === r.space)?.name || '', start: day(r.start_date), end: day(r.end_date), ticketingUrl: validUrl(r.ticketing_url) }))
+        .map((r) => ({ space: spaces.find((s) => s.id === r.space)?.name || '', start: day(r.start_date), end: day(r.end_date), hours: String(r.hours || '').trim(), ticketingUrl: validUrl(r.ticketing_url) }))
         .sort((a, b) => a.start.localeCompare(b.start));
       return {
         ...p,

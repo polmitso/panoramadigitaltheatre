@@ -1,27 +1,76 @@
 ---
+// Experience page (EL/EN). Layout: hero (image, title, tickets) → main column (about, credits, cast, trailer, photos)
+// beside a sticky info box (when, duration, ages, prices, tickets, where). Optional Work fields appear only when filled in.
 import Gallery from './Gallery.astro';
 import { routes, t } from '../lib/i18n.js';
-import { formatDate, youtubeEmbed, ticketUrl } from '../lib/pocketbase.js';
+import { formatDate, youtubeEmbed, ticketUrl, lines, credits, venueInfo } from '../lib/pocketbase.js';
 const { p, lang = 'el' } = Astro.props;
 const L = t[lang];
 const R = routes[lang];
+const en = lang === 'en';
+const D = en
+  ? { watch: 'WATCH THE TRAILER', about: 'About', credits: 'Credits', cast: p.type === 'live' ? 'Cast' : 'With', photos: 'Photos', when: 'Dates', duration: 'Duration', ages: 'Suitable for', prices: 'Tickets', where: 'Venue', map: 'Map', directions: 'Getting here' }
+  : { watch: 'ΔΕΙΤΕ ΤΟ TRAILER', about: 'Λίγα λόγια', credits: 'Συντελεστές', cast: p.type === 'live' ? 'Παίζουν' : 'Συμμετέχουν', photos: 'Φωτογραφίες', when: 'Πότε', duration: 'Διάρκεια', ages: 'Ηλικίες', prices: 'Εισιτήρια', where: 'Πού', map: 'Χάρτης', directions: 'Πώς θα έρθετε' };
 const trailer = youtubeEmbed(p.trailer_url);
 const tix = ticketUrl(p);
+const crew = credits(p.credits);
+const cast = lines(p.cast).join(', ');
+const prices = lines(p.prices);
+const heroImg = p.hero || p.gallery?.[0]?.src || '';
+const v = await venueInfo();
+const mapQ = encodeURIComponent(`${v.address || 'Λεωφόρος Μίκη Θεοδωράκη 15'}, Θεσσαλονίκη`);
 ---
-<main class="wrap page">
-  <nav class="crumbs" aria-label="breadcrumb"><a href={R.home}>{L.home}</a><span>/</span><a href={R.list}>{L.nav.list}</a><span>/</span><span aria-current="page">{p.title}</span></nav>
-  <div class="detail">
-    <div class="detail-poster">{p.poster ? <img src={p.poster} alt={p.title}/> : <span>PANORAMA</span>}</div>
-    <div class="detail-body">
+<main class="dp">
+  <header class:list={['dp-hero', { 'has-img': heroImg }]}>
+    {heroImg && <img class="dp-hero-img" src={heroImg + '?thumb=1920x0'} alt=""/>}
+    <div class="wrap dp-hero-in">
+      <nav class="crumbs" aria-label="breadcrumb"><a href={R.home}>{L.home}</a><span>/</span><a href={R.list}>{L.nav.list}</a><span>/</span><span aria-current="page">{p.title}</span></nav>
       <span class:list={['status', p.status]}>{L.status[p.status]}</span>
       <h1>{p.title}</h1>
       {p.short_description && <p class="lead">{p.short_description}</p>}
-      {p.presentations.length > 0 && <div class="when">{p.presentations.map((x) => <div class="when-row">{x.space && <strong>{x.space}</strong>}<span>{x.start && `${L.from} ${formatDate(x.start)}`}{x.end && ` · ${L.until} ${formatDate(x.end)}`}</span></div>)}</div>}
-      {tix && <a class="btn btn-accent" href={tix} target="_blank" rel="noopener">{L.tickets} ↗</a>}
-      {p.description && <div class="rich" set:html={p.description}/>}
+      <div class="actions">
+        {tix && <a class="btn btn-accent" href={tix} target="_blank" rel="noopener">{L.tickets} ↗</a>}
+        {trailer && <a class="btn btn-line" href="#trailer">▶ {D.watch}</a>}
+      </div>
     </div>
+  </header>
+
+  <div class="wrap dp-grid">
+    <div class="dp-main">
+      {p.description && <section class="dp-sec"><h2>{D.about}</h2><div class="rich" set:html={p.description}/></section>}
+      {(crew.length > 0 || cast) && (
+        <section class="dp-sec">
+          <h2>{D.credits}</h2>
+          {crew.length > 0 && <dl class="dp-credits">{crew.map((c) => <div><dt>{c.role}</dt><dd>{c.names}</dd></div>)}</dl>}
+          {cast && <div class="dp-cast"><h3>{D.cast}</h3><p>{cast}</p></div>}
+        </section>
+      )}
+      {trailer && <section class="dp-sec" id="trailer"><h2>{L.trailer}</h2><div class="video"><iframe src={trailer} title={`${p.title} — trailer`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div></section>}
+      <Gallery images={p.gallery} lang={lang} title={D.photos}/>
+    </div>
+
+    <aside class="dp-side">
+      {p.poster && <img class="dp-poster" src={p.poster + '?thumb=800x0'} alt={p.title}/>}
+      <div class="dp-info">
+        {p.presentations.length > 0 && (
+          <div class="dp-row"><h3>{D.when}</h3>
+            {p.presentations.map((x) => <div class="dp-when">{x.space && <strong>{x.space}</strong>}{(x.start || x.end) && <span>{x.start && `${L.from} ${formatDate(x.start)}`}{x.end && ` · ${L.until} ${formatDate(x.end)}`}</span>}{x.hours && <span class="dp-hours">{x.hours}</span>}</div>)}
+          </div>
+        )}
+        {p.duration && <div class="dp-row"><h3>{D.duration}</h3><p>{p.duration}</p></div>}
+        {p.ages && <div class="dp-row"><h3>{D.ages}</h3><p>{p.ages}</p></div>}
+        {(prices.length > 0 || tix) && (
+          <div class="dp-row"><h3>{D.prices}</h3>
+            {prices.length > 0 && <ul class="dp-prices">{prices.map((x) => <li>{x}</li>)}</ul>}
+            {tix && <a class="btn btn-accent dp-btn" href={tix} target="_blank" rel="noopener">{L.tickets} ↗</a>}
+          </div>
+        )}
+        <div class="dp-row"><h3>{D.where}</h3>
+          <p><strong>{v.name}</strong>{v.address && <><br/>{v.address}, Θεσσαλονίκη</>}</p>
+          <p class="dp-links"><a href={`https://www.google.com/maps/search/?api=1&query=${mapQ}`} target="_blank" rel="noopener">{D.map} ↗</a><a href={R.getThere}>{D.directions}</a>{v.phone && <a href={'tel:' + v.phone.replace(/\s/g, '')}>{v.phone}</a>}</p>
+        </div>
+      </div>
+    </aside>
   </div>
-  <Gallery images={p.gallery} lang={lang}/>
-  {trailer && <section class="block"><h2>{L.trailer}</h2><div class="video"><iframe src={trailer} title={`${p.title} — trailer`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div></section>}
-  <a class="text-link back" href={R.list}>{L.back}</a>
+  <div class="wrap"><a class="text-link back dp-back" href={R.list}>{L.back}</a></div>
 </main>
