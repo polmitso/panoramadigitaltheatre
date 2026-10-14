@@ -63,10 +63,11 @@ const findVenue = (venues) =>
 
 // Contact details come from the venue record, so they are edited in the admin.
 export async function venueInfo() {
-  const venues = await list('venues', { filter: 'editorial_status="published"' });
+  const venues = await list('venues', { filter: 'editorial_status="published"', expand: 'hero_image' });
   const v = findVenue(venues);
-  if (!v) return { name: 'Panorama Digital Theatre', address: '', phone: '', email: '' };
-  return { id: v.id, name: v.name, address: v.address || '', phone: v.phone || '', email: v.email || '' };
+  if (!v) return { name: 'Panorama Digital Theatre', address: '', phone: '', email: '', photo: null };
+  // photo: «Φωτογραφία χώρου» in Work → Χώροι & σκηνές (venues.hero_image) — the building from outside.
+  return { id: v.id, name: v.name, address: v.address || '', phone: v.phone || '', email: v.email || '', photo: mediaUrl(v.expand?.hero_image) };
 }
 
 // «Φωτογραφίες χώρου» chosen in Work → Χώροι & σκηνές → Panorama (venues.gallery), in that order.

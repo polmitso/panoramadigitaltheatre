@@ -53,10 +53,14 @@ export const t = {
     mailSubject: 'Επίσκεψη σχολείου στο Panorama',
     writeUs: 'ΣΤΕΙΛΤΕ ΜΑΣ EMAIL', callUs: 'Ή καλέστε μας στο',
     getThere: {
-      title: 'Πώς θα έρθετε',
+      title: 'Πώς θα έρθετε', photo: 'Ο χώρος απ’ έξω',
       lead: 'Λεωφόρος Μίκη Θεοδωράκη 15 (πρώην Λαγκαδά), δίπλα στο ξενοδοχείο Anatolia, κοντά στην Πλατεία Δημοκρατίας (Βαρδάρης).',
       metro: { title: 'Με το μετρό', text: 'Κατεβείτε στον σταθμό «Δημοκρατία» και ακολουθήστε την έξοδο προς Λαγκαδά. Συνεχίστε με τα πόδια στη Λεωφόρο Μίκη Θεοδωράκη μέχρι τον αριθμό 15.', time: 'περίπου 3 λεπτά με τα πόδια' },
-      bus: { title: 'Με το λεωφορείο', text: 'Κατεβείτε στη στάση «Πλατεία Δημοκρατίας» (Βαρδάρης) και ακολουθήστε τη Λεωφόρο Μίκη Θεοδωράκη μέχρι τον αριθμό 15, δίπλα στο ξενοδοχείο Anatolia.', time: '150–200 μέτρα, περίπου 3 λεπτά με τα πόδια', groups: [['Στη Μοναστηρίου', ['02Κ', '03Κ', '10', '11', '14', '17', '23', '37', '40']], ['Στην πλευρά της Λαγκαδά', ['20', '25', '26', '27', '29', '32', '34', '35', '38', '57']]], note: 'Ενδεικτικά, ανάλογα με την κατεύθυνση και τη διαδρομή. Για την ακριβή στάση και τα τρέχοντα δρομολόγια, δείτε την τηλεματική του ΟΑΣΘ πριν ξεκινήσετε.', link: 'Δρομολόγια ΟΑΣΘ' },
+      bus: { title: 'Με το λεωφορείο', text: 'Στάση «Πλατεία Δημοκρατίας» (Βαρδάρης).', groups: [
+        { title: 'Από ανατολικά', items: [[['02Κ', '03Κ'], 'από τον άξονα ΙΚΕΑ και ανατολικής Θεσσαλονίκης, προς ΚΤΕΛ Μακεδονία ή Νέο Σιδηροδρομικό Σταθμό'], [['10'], 'από Χαριλάου'], [['14'], 'από Άνω Τούμπα']] },
+        { title: 'Από δυτικά (Μοναστηρίου / Νέος Σιδηροδρομικός Σταθμός)', items: [[['02Κ'], 'από ΚΤΕΛ Μακεδονία, προς ΙΚΕΑ'], [['03Κ', '10', '14', '23', '37'], 'από τον Νέο Σιδηροδρομικό Σταθμό, προς το κέντρο']] },
+        { title: 'Από δυτικές και βορειοδυτικές συνοικίες', items: [[['20'], 'από Μενεμένη'], [['25'], 'από Νεάπολη'], [['26'], 'από Καλλιθέα'], [['27'], 'από Σταυρούπολη'], [['29'], 'από Πολίχνη'], [['32'], 'από Κάτω Ηλιούπολη'], [['34'], 'από Άνω Ηλιούπολη'], [['38'], 'από Νέα Ευκαρπία']] },
+      ], walk: 'Αποβιβαστείτε στην «Πλατεία Δημοκρατίας» και περπατήστε περίπου 150–200 μέτρα στη Λεωφόρο Μίκη Θεοδωράκη (πρώην Λαγκαδά), μέχρι τον αριθμό 15, δίπλα στο ξενοδοχείο Anatolia.', link: 'Δρομολόγια ΟΑΣΘ' },
       car: { title: 'Με αυτοκίνητο', text: 'Στην περιοχή λειτουργούν ιδιωτικά parking με χρέωση· μπορείτε επίσης να αναζητήσετε θέση στους γύρω δρόμους, τηρώντας τη σήμανση στάθμευσης. Υπολογίστε λίγο επιπλέον χρόνο για το παρκάρισμα.', link: 'Οδηγίες στο Google Maps' },
       info: 'Πληροφορίες',
     },
@@ -113,10 +117,14 @@ export const t = {
     mailSubject: 'School visit to Panorama',
     writeUs: 'EMAIL US', callUs: 'Or call us on',
     getThere: {
-      title: 'Getting here',
+      title: 'Getting here', photo: 'The building from the outside',
       lead: '15 Miki Theodoraki Avenue (formerly Lagkada), next to the Anatolia Hotel, close to Dimokratias Square (Vardaris).',
       metro: { title: 'By metro', text: 'Get off at «Dimokratia» station and take the exit towards Lagkada. Walk along Miki Theodoraki Avenue to number 15.', time: 'about a 3-minute walk' },
-      bus: { title: 'By bus', text: 'Get off at the «Plateia Dimokratias» (Vardaris) stop and walk along Miki Theodoraki Avenue to number 15, next to the Anatolia Hotel.', time: '150–200 metres, about a 3-minute walk', groups: [['On Monastiriou', ['02K', '03K', '10', '11', '14', '17', '23', '37', '40']], ['On the Lagkada side', ['20', '25', '26', '27', '29', '32', '34', '35', '38', '57']]], note: 'Indicative, depending on direction and route. Check OASTH live info for the exact stop and current timetables before you set off.', link: 'OASTH timetables' },
+      bus: { title: 'By bus', text: 'Stop: «Plateia Dimokratias» (Vardaris).', groups: [
+        { title: 'From the east', items: [[['02K', '03K'], 'from the IKEA axis and eastern Thessaloniki, towards KTEL Makedonia or the New Railway Station'], [['10'], 'from Charilaou'], [['14'], 'from Ano Toumpa']] },
+        { title: 'From the west (Monastiriou / New Railway Station)', items: [[['02K'], 'from KTEL Makedonia, towards IKEA'], [['03K', '10', '14', '23', '37'], 'from the New Railway Station, towards the centre']] },
+        { title: 'From the western and north-western districts', items: [[['20'], 'from Menemeni'], [['25'], 'from Neapoli'], [['26'], 'from Kallithea'], [['27'], 'from Stavroupoli'], [['29'], 'from Polichni'], [['32'], 'from Kato Ilioupoli'], [['34'], 'from Ano Ilioupoli'], [['38'], 'from Nea Efkarpia']] },
+      ], walk: 'Get off at «Plateia Dimokratias» and walk about 150–200 metres along Miki Theodoraki Avenue (formerly Lagkada) to number 15, next to the Anatolia Hotel.', link: 'OASTH timetables' },
       car: { title: 'By car', text: 'There are paid private car parks in the area; you can also look for a spot in the surrounding streets, following the parking signs. Allow a little extra time to park.', link: 'Directions on Google Maps' },
       info: 'Information',
     },
