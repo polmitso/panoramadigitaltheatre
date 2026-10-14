@@ -1,16 +1,19 @@
 ---
 import Gallery from './Gallery.astro';
 import { t } from '../lib/i18n.js';
-import { venueGallery } from '../lib/pocketbase.js';
+import { venueGallery, venueInfo } from '../lib/pocketbase.js';
 const { lang = 'el' } = Astro.props;
 const L = t[lang];
 const P = L.place;
-const photos = await venueGallery();
+const [photos, venue] = await Promise.all([venueGallery(), venueInfo()]);
 ---
 <main class="wrap page place">
   <header class="page-head"><h1>{P.title}</h1><p class="lead">{P.lead}</p></header>
-  <div class="floors">
-    {P.floors.map(([level, name, text]) => <article class="floor"><span class="floor-level">{level}</span><h3>{name}</h3><p>{text}</p></article>)}
+  <div class:list={['place-top', { 'has-photo': venue.photo }]}>
+    <div class="floors">
+      {P.floors.map(([level, name, text]) => <article class="floor"><span class="floor-level">{level}</span><h3>{name}</h3><p>{text}</p></article>)}
+    </div>
+    {venue.photo && <figure class="place-photo"><img src={venue.photo + '?thumb=900x0'} alt={P.outside}/><figcaption>{P.outside}</figcaption></figure>}
   </div>
   <Gallery images={photos} lang={lang} title={P.photos}/>
 </main>

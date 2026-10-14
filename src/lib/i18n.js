@@ -53,7 +53,7 @@ export const t = {
     mailSubject: 'Επίσκεψη σχολείου στο Panorama',
     writeUs: 'ΣΤΕΙΛΤΕ ΜΑΣ EMAIL', callUs: 'Ή καλέστε μας στο',
     getThere: {
-      title: 'Πώς θα έρθετε', photo: 'Ο χώρος απ’ έξω',
+      title: 'Πώς θα έρθετε',
       lead: 'Λεωφόρος Μίκη Θεοδωράκη 15 (πρώην Λαγκαδά), δίπλα στο ξενοδοχείο Anatolia, κοντά στην Πλατεία Δημοκρατίας (Βαρδάρης).',
       metro: { title: 'Με το μετρό', text: 'Κατεβείτε στον σταθμό «Δημοκρατία» και ακολουθήστε την έξοδο προς Λαγκαδά. Συνεχίστε με τα πόδια στη Λεωφόρο Μίκη Θεοδωράκη μέχρι τον αριθμό 15.', time: 'περίπου 3 λεπτά με τα πόδια' },
       bus: { title: 'Με το λεωφορείο', text: 'Στάση «Πλατεία Δημοκρατίας» (Βαρδάρης).', groups: [
@@ -65,7 +65,7 @@ export const t = {
       info: 'Πληροφορίες',
     },
     place: {
-      title: 'Ο χώρος',
+      title: 'Ο χώρος', outside: 'Ο χώρος απ’ έξω',
       lead: 'Δύο επίπεδα, τρεις αίθουσες — κάθε μία στήνεται για αυτό που θέλουμε να ζήσει ο επισκέπτης.',
       floors: [
         ['ΙΣΟΓΕΙΟ', 'Υποδοχή και δύο αίθουσες', 'Εδώ ξεκινά η επίσκεψη: ο χώρος υποδοχής και δύο αίθουσες για εκθέσεις, προβολές και εκπαιδευτικά προγράμματα.'],
@@ -117,7 +117,7 @@ export const t = {
     mailSubject: 'School visit to Panorama',
     writeUs: 'EMAIL US', callUs: 'Or call us on',
     getThere: {
-      title: 'Getting here', photo: 'The building from the outside',
+      title: 'Getting here',
       lead: '15 Miki Theodoraki Avenue (formerly Lagkada), next to the Anatolia Hotel, close to Dimokratias Square (Vardaris).',
       metro: { title: 'By metro', text: 'Get off at «Dimokratia» station and take the exit towards Lagkada. Walk along Miki Theodoraki Avenue to number 15.', time: 'about a 3-minute walk' },
       bus: { title: 'By bus', text: 'Stop: «Plateia Dimokratias» (Vardaris).', groups: [
@@ -129,7 +129,7 @@ export const t = {
       info: 'Information',
     },
     place: {
-      title: 'The venue',
+      title: 'The venue', outside: 'The building from the outside',
       lead: 'Two levels, three halls — each one set up for what we want visitors to experience.',
       floors: [
         ['GROUND FLOOR', 'Reception and two halls', 'Where every visit begins: the reception area and two halls for exhibitions, screenings and educational programmes.'],
