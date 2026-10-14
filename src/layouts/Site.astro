@@ -8,7 +8,7 @@ const R = routes[lang];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const pair = pairs.find((p) => p.some((x) => path === x || path.startsWith(x + '/') && x !== '/' && x !== '/en')) || pairs[0];
 const [logo, venue] = await Promise.all([mediaById('0ozzt1y92y1e6na'), venueInfo()]);
-const nav = [[R.list, L.nav.list], [R.schools, L.nav.schools], [R.contact, L.nav.contact]];
+const nav = [[R.list, L.nav.list], [R.place, L.nav.place], [R.schools, L.nav.schools], [R.getThere, L.nav.getThere], [R.contact, L.nav.contact]];
 const desc = lang === 'en'
   ? 'Panorama Digital Theatre, Thessaloniki — culture, art and technology in one place: exhibitions, shows, events and school visits.'
   : 'Panorama Digital Theatre, Θεσσαλονίκη — πολιτισμός, τέχνη και τεχνολογία σε έναν χώρο: εκθέσεις, θεάματα, εκδηλώσεις και επισκέψεις σχολείων.';
@@ -43,7 +43,7 @@ const desc = lang === 'en'
   <div class="wrap footer-inner">
     <div class="footer-brand">{logo && <img src={logo} alt="Panorama Digital Theatre"/>}<a href="https://videotheatre.gr" target="_blank" rel="noopener">{L.footerNote} ↗</a></div>
     <div class="footer-col">{venue.address && <span>{venue.address}, Θεσσαλονίκη</span>}{venue.phone && <a href={'tel:' + venue.phone.replace(/\s/g, '')}>{venue.phone}</a>}{venue.email && <a href={'mailto:' + venue.email}>{venue.email}</a>}</div>
-    <div class="footer-col"><a href={R.list}>{L.nav.list}</a><a href={R.schools}>{L.nav.schools}</a><a href={R.contact}>{L.nav.contact}</a></div>
+    <div class="footer-col">{nav.map(([href, label]) => <a href={href}>{label}</a>)}</div>
   </div>
 </footer>
 </body>

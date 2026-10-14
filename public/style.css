@@ -220,7 +220,7 @@ p { margin: 0; }
 @media(prefers-reduced-motion:reduce){.gal-item img{transition:none}}
 
 /* Πώς θα έρθετε */
-.getthere { margin-top: clamp(48px, 7vw, 88px); padding-top: clamp(32px, 5vw, 56px); border-top: 1px solid var(--line, rgba(255,255,255,.12)); }
+.getthere { margin-top: 8px; }
 .getthere h2 { margin: 0 0 10px; font-size: clamp(28px, 3.4vw, 40px); }
 .gt-lead { margin: 0 0 32px; max-width: 760px; color: var(--muted); font-size: 18px; line-height: 1.6; }
 .gt-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
@@ -240,7 +240,6 @@ p { margin: 0; }
 .gt-card .text-link { align-self: flex-start; }
 
 /* Ο χώρος */
-.place-lead { margin: -8px 0 28px; max-width: 720px; color: var(--muted); font-size: 18px; line-height: 1.6; }
 .floors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .floor { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
 .floor-level { font-size: 12px; font-weight: 600; letter-spacing: .16em; color: var(--muted); }

@@ -1,19 +1,21 @@
 // All interface copy, Greek and English. Production texts come from Work.
 export const routes = {
-  el: { home: '/', list: '/ekthesis', detail: (s) => '/ekthesis/' + s, schools: '/scholeia', contact: '/epikoinonia' },
-  en: { home: '/en', list: '/en/experiences', detail: (s) => '/en/experiences/' + s, schools: '/en/schools', contact: '/en/contact' },
+  el: { home: '/', list: '/ekthesis', detail: (s) => '/ekthesis/' + s, schools: '/scholeia', place: '/o-choros', getThere: '/pos-tha-erthete', contact: '/epikoinonia' },
+  en: { home: '/en', list: '/en/experiences', detail: (s) => '/en/experiences/' + s, schools: '/en/schools', place: '/en/the-venue', getThere: '/en/getting-here', contact: '/en/contact' },
 };
 
 export const pairs = [
   ['/', '/en'],
   ['/ekthesis', '/en/experiences'],
   ['/scholeia', '/en/schools'],
+  ['/o-choros', '/en/the-venue'],
+  ['/pos-tha-erthete', '/en/getting-here'],
   ['/epikoinonia', '/en/contact'],
 ];
 
 export const t = {
   el: {
-    nav: { list: 'Εκθέσεις', schools: 'Σχολεία', contact: 'Επικοινωνία' },
+    nav: { list: 'Εκθέσεις', place: 'Ο χώρος', schools: 'Σχολεία', getThere: 'Πώς θα έρθετε', contact: 'Επικοινωνία' },
     status: { now: 'ΠΑΡΟΥΣΙΑΖΕΤΑΙ ΤΩΡΑ', upcoming: 'ΣΥΝΤΟΜΑ', past: 'ΟΛΟΚΛΗΡΩΘΗΚΕ' },
     from: 'Από', until: 'Έως', tickets: 'ΕΙΣΙΤΗΡΙΑ',
     heroTitle: 'Πολιτισμός, τέχνη και τεχνολογία σε έναν χώρο',
@@ -73,7 +75,7 @@ export const t = {
     footerNote: 'Ένας χώρος της Video Theatre',
   },
   en: {
-    nav: { list: 'Experiences', schools: 'Schools', contact: 'Contact' },
+    nav: { list: 'Experiences', place: 'The venue', schools: 'Schools', getThere: 'Getting here', contact: 'Contact' },
     status: { now: 'NOW SHOWING', upcoming: 'COMING SOON', past: 'FINISHED' },
     from: 'From', until: 'Until', tickets: 'TICKETS',
     heroTitle: 'Culture, art and technology in one place',
