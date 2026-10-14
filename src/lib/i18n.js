@@ -58,6 +58,15 @@ export const t = {
       car: { title: 'Με αυτοκίνητο', text: 'Στην περιοχή λειτουργούν ιδιωτικά parking με χρέωση· μπορείτε επίσης να αναζητήσετε θέση στους γύρω δρόμους, τηρώντας τη σήμανση στάθμευσης. Υπολογίστε λίγο επιπλέον χρόνο για το παρκάρισμα.', link: 'Οδηγίες στο Google Maps' },
       info: 'Πληροφορίες',
     },
+    place: {
+      title: 'Ο χώρος',
+      lead: 'Δύο επίπεδα, τρεις αίθουσες — κάθε μία στήνεται για αυτό που θέλουμε να ζήσει ο επισκέπτης.',
+      floors: [
+        ['ΙΣΟΓΕΙΟ', 'Υποδοχή και δύο αίθουσες', 'Εδώ ξεκινά η επίσκεψη: ο χώρος υποδοχής και δύο αίθουσες για εκθέσεις, προβολές και εκπαιδευτικά προγράμματα.'],
+        ['ΕΠΑΝΩ ΟΡΟΦΟΣ', 'Immersive Stage', 'Η αίθουσα εμβύθισης του Panorama, όπου εικόνα και ήχος περιβάλλουν τον επισκέπτη.'],
+      ],
+      photos: 'Φωτογραφίες του χώρου',
+    },
     contactTitle: 'Επικοινωνία', contactLead: 'Θα χαρούμε να σας δούμε στο Panorama.',
     address: 'Διεύθυνση', phone: 'Τηλέφωνο', email: 'Email', map: 'Άνοιγμα στον χάρτη',
     ticketsNote: 'Τα εισιτήρια για κάθε έκθεση διατίθενται στη more.com, από τη σελίδα της έκθεσης.',
@@ -108,6 +117,15 @@ export const t = {
       bus: { title: 'By bus', text: 'Get off at the «Plateia Dimokratias» (Vardaris) stop and walk along Miki Theodoraki Avenue to number 15, next to the Anatolia Hotel.', time: '150–200 metres, about a 3-minute walk', groups: [['On Monastiriou', ['02K', '03K', '10', '11', '14', '17', '23', '37', '40']], ['On the Lagkada side', ['20', '25', '26', '27', '29', '32', '34', '35', '38', '57']]], note: 'Indicative, depending on direction and route. Check OASTH live info for the exact stop and current timetables before you set off.', link: 'OASTH timetables' },
       car: { title: 'By car', text: 'There are paid private car parks in the area; you can also look for a spot in the surrounding streets, following the parking signs. Allow a little extra time to park.', link: 'Directions on Google Maps' },
       info: 'Information',
+    },
+    place: {
+      title: 'The venue',
+      lead: 'Two levels, three halls — each one set up for what we want visitors to experience.',
+      floors: [
+        ['GROUND FLOOR', 'Reception and two halls', 'Where every visit begins: the reception area and two halls for exhibitions, screenings and educational programmes.'],
+        ['UPPER FLOOR', 'Immersive Stage', 'Panorama’s immersive hall, where image and sound surround the visitor.'],
+      ],
+      photos: 'Photos of the venue',
     },
     contactTitle: 'Contact', contactLead: 'We look forward to seeing you at Panorama.',
     address: 'Address', phone: 'Phone', email: 'Email', map: 'Open in maps',

@@ -2,7 +2,8 @@
 import Card from './Card.astro';
 import HeroSlides from './HeroSlides.astro';
 import { routes, t } from '../lib/i18n.js';
-import { experiences, mediaById, heroSlides } from '../lib/pocketbase.js';
+import Gallery from './Gallery.astro';
+import { experiences, mediaById, heroSlides, venueGallery } from '../lib/pocketbase.js';
 const { lang = 'el' } = Astro.props;
 const L = t[lang];
 const R = routes[lang];
@@ -12,6 +13,7 @@ const homeItems = [...current, ...archive.filter((p) => p.featured)];
 // Hero: slides chosen in Work → «Hero αρχικής» (Panorama); otherwise current hero images, else the venue photo.
 const facade = await mediaById('h7tjyr00agl3133');
 const slides = await heroSlides(lang, current, R.detail, facade);
+const placePhotos = await venueGallery();
 ---
 <main>
   <section class="hero">
@@ -39,6 +41,15 @@ const slides = await heroSlides(lang, current, R.detail, facade);
       {facade && <img class="space-photo" src={facade} alt="Panorama Digital Theatre" loading="lazy"/>}
     </div>
     <div class="wrap tech-grid">{L.tech.map(([h, d]) => <div class="tech"><h3>{h}</h3><p>{d}</p></div>)}</div>
+  </section>
+
+  <section class="wrap section place" aria-labelledby="place-title">
+    <div class="section-head"><h2 id="place-title">{L.place.title}</h2></div>
+    <p class="place-lead">{L.place.lead}</p>
+    <div class="floors">
+      {L.place.floors.map(([level, name, text]) => <article class="floor"><span class="floor-level">{level}</span><h3>{name}</h3><p>{text}</p></article>)}
+    </div>
+    <Gallery images={placePhotos} lang={lang} title={L.place.photos}/>
   </section>
 
   <section class="schools-band">

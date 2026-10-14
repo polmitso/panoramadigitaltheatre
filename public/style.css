@@ -238,3 +238,13 @@ p { margin: 0; }
 .gt-info a { color: inherit; font-weight: 600; }
 @media (max-width: 900px) { .gt-grid { grid-template-columns: 1fr; } }
 .gt-card .text-link { align-self: flex-start; }
+
+/* Ο χώρος */
+.place-lead { margin: -8px 0 28px; max-width: 720px; color: var(--muted); font-size: 18px; line-height: 1.6; }
+.floors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.floor { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.floor-level { font-size: 12px; font-weight: 600; letter-spacing: .16em; color: var(--muted); }
+.floor h3 { margin: 0; font-size: clamp(22px, 2.4vw, 28px); }
+.floor p { margin: 0; line-height: 1.6; color: var(--text, inherit); }
+.place .gal { margin-top: 36px; }
+@media (max-width: 760px) { .floors { grid-template-columns: 1fr; } }

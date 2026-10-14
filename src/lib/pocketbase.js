@@ -69,6 +69,15 @@ export async function venueInfo() {
   return { id: v.id, name: v.name, address: v.address || '', phone: v.phone || '', email: v.email || '' };
 }
 
+// «Φωτογραφίες χώρου» chosen in Work → Χώροι & σκηνές → Panorama (venues.gallery), in that order.
+export async function venueGallery() {
+  const venues = await list('venues', { filter: 'editorial_status="published"', expand: 'gallery' });
+  const v = findVenue(venues);
+  if (!v) return [];
+  const byId = new Map((v.expand?.gallery || []).map((m) => [m.id, m]));
+  return (v.gallery || []).map((id) => byId.get(id)).filter(Boolean).map((m) => ({ src: mediaUrl(m), alt: m.title || '' })).filter((g) => g.src);
+}
+
 const day = (d) => (d ? String(d).slice(0, 10) : '');
 const today = () => {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Athens', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map((x) => [x.type, x.value]));
