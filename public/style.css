@@ -260,7 +260,7 @@ p { margin: 0; }
 .dp-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .dp-hero.has-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(6,6,8,.96) 0%, rgba(6,6,8,.6) 50%, rgba(6,6,8,.2) 100%); }
 .dp-hero-in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: clamp(32px, 4vw, 48px); padding-bottom: clamp(40px, 6vw, 72px); }
-.dp-hero.has-img .dp-hero-in { min-height: clamp(440px, 46vw, 620px); justify-content: flex-end; }
+.dp-hero.has-img .dp-hero-in { min-height: max(440px, min(41.67vw, 80vh)); justify-content: flex-end; }
 .dp-hero .crumbs { margin: 0 0 auto; padding-bottom: 32px; }
 .dp-hero h1 { margin: 0; max-width: 900px; }
 .dp-hero .lead { margin: 0; }
