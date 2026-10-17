@@ -316,3 +316,8 @@ p { margin: 0; }
 .hero::before, .dp-hero::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(var(--hh) + 80px); background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,0)); z-index: 2; pointer-events: none; }
 .dp-hero-in { padding-top: calc(var(--hh) + clamp(32px, 4vw, 48px)); }
 @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
+/* Menu text: larger and bolder, with a soft shadow so it reads over photos */
+.nav-links a { font-size: 17px; font-weight: 600; text-shadow: 0 1px 12px rgba(0,0,0,.55); }
+.nav-links a.active { border-bottom-width: 2px; }
+.languages { font-size: 14px; font-weight: 600; text-shadow: 0 1px 12px rgba(0,0,0,.55); }
+@media (max-width: 760px) { .nav-links a { font-size: 16px; } }
