@@ -30,13 +30,14 @@ const desc = lang === 'en'
 <link rel="stylesheet" href="/style.css"/>
 <script is:inline defer src="https://stats.videotheatre.gr/script.js" data-website-id="b562bc20-4fff-4b70-aa5b-19f41114c620" data-domains="panorama.com.gr,www.panorama.com.gr"></script><script is:inline>/* Umami: μέτρηση κλικ (εισιτήρια, email, τηλέφωνο, εξωτερικοί σύνδεσμοι, φόρμα) */document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a||!window.umami)return;var h=a.href,t=(a.textContent||"").trim(),n;if(/more\.com|viva\.gr|ticketservices|eventora/i.test(h)||/εισιτ|ticket/i.test(t))n="Εισιτήρια";else if(h.indexOf("mailto:")==0)n="Email";else if(h.indexOf("tel:")==0)n="Τηλέφωνο";else if(a.hostname&&a.hostname!=location.hostname)n="Εξωτερικός σύνδεσμος";if(n)window.umami.track(n,{link:h.replace(/^mailto:|\?.*$/g,""),page:location.pathname,text:t.slice(0,60)})},true);document.addEventListener("submit",function(e){if(window.umami&&e.target.matches&&e.target.matches(".contact-form"))window.umami.track("Φόρμα επικοινωνίας",{page:location.pathname})},true);</script></head>
 <body>
-<header class="site-header">
+<header class="site-header" data-topbar>
   <nav class="wrap" aria-label={lang === 'en' ? 'Main navigation' : 'Κύρια πλοήγηση'}>
     <a class="brand" href={R.home}>{logo ? <img src={logo} alt="Panorama Digital Theatre"/> : <span>PANORAMA</span>}</a>
     <div class="nav-links">{nav.map(([href, label]) => <a href={href} class:list={{ active: path === href || path.startsWith(href + '/') }}>{label}</a>)}</div>
     <div class="languages"><a href={pair[0]} aria-current={lang === 'el' ? 'page' : undefined}>EL</a><span aria-hidden="true">/</span><a href={pair[1]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a></div>
   </nav>
 </header>
+<script is:inline>(()=>{const h=document.querySelector("[data-topbar]");if(!h)return;const r=document.documentElement,set=()=>r.style.setProperty("--hh",h.offsetHeight+"px");set();if(window.ResizeObserver)new ResizeObserver(set).observe(h);const on=()=>h.classList.toggle("scrolled",scrollY>8);on();addEventListener("scroll",on,{passive:true})})()</script>
 <slot/>
 <Newsletter site="panorama" lang={lang} wrap="wrap"/>
 <footer class="site-footer">
