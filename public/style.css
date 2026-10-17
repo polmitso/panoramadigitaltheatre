@@ -304,3 +304,4 @@ p { margin: 0; }
 .place-photo figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 @media (max-width: 860px) { .place-top.has-photo { grid-template-columns: 1fr; } .place-photo { order: -1; } .place-photo img { max-height: 520px; } }
 .dp-hero-img { object-position: center top; }
+.hs-slide img { object-position: center 25%; }
