@@ -35,8 +35,14 @@ const desc = lang === 'en'
     <a class="brand" href={R.home}>{logo ? <img src={logo} alt="Panorama Digital Theatre"/> : <span>PANORAMA</span>}</a>
     <div class="nav-links">{nav.map(([href, label]) => <a href={href} class:list={{ active: path === href || path.startsWith(href + '/') }}>{label}</a>)}</div>
     <div class="languages"><a href={pair[0]} aria-current={lang === 'el' ? 'page' : undefined}>EL</a><span aria-hidden="true">/</span><a href={pair[1]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a></div>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mnav" aria-label={lang === 'en' ? 'Menu' : 'Μενού'} data-nav-toggle><span></span><span></span><span></span></button>
   </nav>
 </header>
+<div class="mnav" id="mnav" hidden data-mnav>
+  <div class="mnav-links">{nav.map(([href, label]) => <a href={href} class:list={{ active: path === href || path.startsWith(href + '/') }} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a>)}</div>
+  <div class="mnav-lang"><a href={pair[0]} aria-current={lang === 'el' ? 'page' : undefined}>ΕΛΛΗΝΙΚΑ</a><a href={pair[1]} aria-current={lang === 'en' ? 'page' : undefined}>ENGLISH</a></div>
+</div>
+<script is:inline>(()=>{const b=document.querySelector("[data-nav-toggle]"),m=document.querySelector("[data-mnav]");if(!b||!m)return;const set=o=>{b.setAttribute("aria-expanded",String(o));m.hidden=!o;document.documentElement.classList.toggle("mnav-open",o)};b.addEventListener("click",()=>set(m.hidden));m.addEventListener("click",e=>{if(e.target.closest("a"))set(false)});addEventListener("keydown",e=>{if(e.key==="Escape"&&!m.hidden){set(false);b.focus()}});matchMedia("(min-width: 761px)").addEventListener("change",e=>{if(e.matches)set(false)});addEventListener("pageshow",()=>set(false))})()</script>
 <script is:inline>(()=>{const h=document.querySelector("[data-topbar]");if(!h)return;const r=document.documentElement,set=()=>r.style.setProperty("--hh",h.offsetHeight+"px");set();if(window.ResizeObserver)new ResizeObserver(set).observe(h);const on=()=>h.classList.toggle("scrolled",scrollY>8);on();addEventListener("scroll",on,{passive:true})})()</script>
 <slot/>
 <Newsletter site="panorama" lang={lang} wrap="wrap"/>
