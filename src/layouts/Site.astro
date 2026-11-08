@@ -1,14 +1,16 @@
 ---
 import Newsletter from '../components/Newsletter.astro';
 import { routes, pairs, t } from '../lib/i18n.js';
-import { mediaById, venueInfo } from '../lib/pocketbase.js';
+import { mediaById, venueInfo, offers } from '../lib/pocketbase.js';
 const { lang = 'el', title = '' } = Astro.props;
 const L = t[lang];
 const R = routes[lang];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const pair = pairs.find((p) => p.some((x) => path === x || path.startsWith(x + '/') && x !== '/' && x !== '/en')) || pairs[0];
-const [logo, venue] = await Promise.all([mediaById('0ozzt1y92y1e6na'), venueInfo()]);
+const [logo, venue, activeOffers] = await Promise.all([mediaById('0ozzt1y92y1e6na'), venueInfo(), offers(lang)]);
 const nav = [[R.list, L.nav.list], [R.place, L.nav.place], [R.schools, L.nav.schools], [R.getThere, L.nav.getThere], [R.contact, L.nav.contact]];
+// «Προσφορές» only while there is an active offer (Work → Προσφορές).
+if (activeOffers.length) nav.splice(1, 0, [R.offers, L.nav.offers]);
 const desc = lang === 'en'
   ? 'Panorama Digital Theatre, Thessaloniki — culture, art and technology in one place: exhibitions, shows, events and school visits.'
   : 'Panorama Digital Theatre, Θεσσαλονίκη — πολιτισμός, τέχνη και τεχνολογία σε έναν χώρο: εκθέσεις, θεάματα, εκδηλώσεις και επισκέψεις σχολείων.';

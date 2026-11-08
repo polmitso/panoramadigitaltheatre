@@ -1,7 +1,7 @@
 // All interface copy, Greek and English. Production texts come from Work.
 export const routes = {
-  el: { home: '/', list: '/ekthesis', detail: (s) => '/ekthesis/' + s, schools: '/scholeia', place: '/o-choros', getThere: '/pos-tha-erthete', contact: '/epikoinonia' },
-  en: { home: '/en', list: '/en/experiences', detail: (s) => '/en/experiences/' + s, schools: '/en/schools', place: '/en/the-venue', getThere: '/en/getting-here', contact: '/en/contact' },
+  el: { home: '/', list: '/ekthesis', detail: (s) => '/ekthesis/' + s, schools: '/scholeia', place: '/o-choros', getThere: '/pos-tha-erthete', contact: '/epikoinonia', offers: '/prosfores' },
+  en: { home: '/en', list: '/en/experiences', detail: (s) => '/en/experiences/' + s, schools: '/en/schools', place: '/en/the-venue', getThere: '/en/getting-here', contact: '/en/contact', offers: '/en/offers' },
 };
 
 export const pairs = [
@@ -11,11 +11,13 @@ export const pairs = [
   ['/o-choros', '/en/the-venue'],
   ['/pos-tha-erthete', '/en/getting-here'],
   ['/epikoinonia', '/en/contact'],
+  ['/prosfores', '/en/offers'],
 ];
 
 export const t = {
   el: {
-    nav: { list: 'Εκθέσεις', place: 'Ο χώρος', schools: 'Σχολεία', getThere: 'Πώς θα έρθετε', contact: 'Επικοινωνία' },
+    nav: { list: 'Εκθέσεις', place: 'Ο χώρος', schools: 'Σχολεία', getThere: 'Πώς θα έρθετε', contact: 'Επικοινωνία', offers: 'Προσφορές' },
+    offers: { title: 'Προσφορές', lead: 'Ό,τι ισχύει αυτή την περίοδο στο Panorama.', where: 'Ισχύει μόνο στο ταμείο του Panorama.', until: 'Ισχύει έως', all: 'Όλες οι προσφορές', none: 'Αυτή την περίοδο δεν τρέχει κάποια προσφορά. Ρίξτε μια ματιά στις εκθέσεις μας.', call: 'Τηλέφωνο' },
     status: { now: 'ΠΑΡΟΥΣΙΑΖΕΤΑΙ ΤΩΡΑ', upcoming: 'ΣΥΝΤΟΜΑ', past: 'ΟΛΟΚΛΗΡΩΘΗΚΕ' },
     from: 'Από', until: 'Έως', tickets: 'ΕΙΣΙΤΗΡΙΑ',
     heroTitle: 'Πολιτισμός, τέχνη και τεχνολογία σε έναν χώρο',
@@ -79,7 +81,8 @@ export const t = {
     footerNote: 'Ένας χώρος της Video Theatre',
   },
   en: {
-    nav: { list: 'Experiences', place: 'The venue', schools: 'Schools', getThere: 'Getting here', contact: 'Contact' },
+    nav: { list: 'Experiences', place: 'The venue', schools: 'Schools', getThere: 'Getting here', contact: 'Contact', offers: 'Offers' },
+    offers: { title: 'Offers', lead: 'What is on offer at Panorama right now.', where: 'Valid only at the Panorama box office.', until: 'Valid until', all: 'All offers', none: 'There is no offer running at the moment. Have a look at our experiences.', call: 'Phone' },
     status: { now: 'NOW SHOWING', upcoming: 'COMING SOON', past: 'FINISHED' },
     from: 'From', until: 'Until', tickets: 'TICKETS',
     heroTitle: 'Culture, art and technology in one place',

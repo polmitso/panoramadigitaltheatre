@@ -1,0 +1,19 @@
+---
+// One offer: portrait image (4:5) + optional title, text, «where it applies», end date and button.
+import { t } from '../lib/i18n.js';
+import { formatDate } from '../lib/pocketbase.js';
+const { o, lang = 'el', venue = null, compact = false } = Astro.props;
+const L = t[lang].offers;
+const where = o.where || L.where;
+---
+<article class:list={['offer', { 'offer-compact': compact }]}>
+  <img class="offer-img" src={o.image} alt={o.alt || o.title || L.title} loading={compact ? 'eager' : 'lazy'} width="800" height="1000"/>
+  <div class="offer-body">
+    {o.title && <h3>{o.title}</h3>}
+    {o.text && <p class="offer-text">{o.text}</p>}
+    <p class="offer-where">{where}</p>
+    {venue && (venue.address || venue.phone) && <p class="offer-venue">{venue.address}{venue.address && venue.phone && ' · '}{venue.phone && <a href={'tel:' + venue.phone.replace(/\s/g, '')}>{venue.phone}</a>}</p>}
+    {o.ends && <p class="offer-until">{L.until} {formatDate(o.ends)}</p>}
+    {o.link && <div class="actions"><a class="btn btn-light" href={o.link} target="_blank" rel="noopener">{o.button || (lang === 'en' ? 'MORE' : 'ΠΕΡΙΣΣΟΤΕΡΑ')}</a></div>}
+  </div>
+</article>

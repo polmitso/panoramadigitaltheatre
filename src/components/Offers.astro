@@ -1,0 +1,14 @@
+---
+import OfferCard from './OfferCard.astro';
+import { routes, t } from '../lib/i18n.js';
+import { offers, venueInfo } from '../lib/pocketbase.js';
+const { lang = 'el' } = Astro.props;
+const L = t[lang];
+const [list, venue] = await Promise.all([offers(lang), venueInfo()]);
+---
+<main class="wrap page">
+  <header class="page-head"><h1>{L.offers.title}</h1><p class="lead">{L.offers.lead}</p></header>
+  {list.length
+    ? <div class="offers">{list.map((o) => <OfferCard o={o} lang={lang} venue={venue}/>)}</div>
+    : <p class="empty">{L.offers.none} <a class="text-link" href={routes[lang].list}>{L.allLink} →</a></p>}
+</main>

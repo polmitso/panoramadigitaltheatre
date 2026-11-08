@@ -348,3 +348,21 @@ p { margin: 0; }
   .mnav-lang a[aria-current=page] { color: var(--text); background: #1d1d22; }
 }
 @media (max-width: 760px) and (prefers-reduced-motion: reduce) { .nav-toggle span { transition: none; } }
+
+/* Offers (11/2026): Work → Προσφορές. Portrait image 4:5 + text; band on the home page, cards on /prosfores */
+.offers { display: grid; gap: clamp(32px, 4vw, 56px); }
+.offer { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.offer-img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; background: var(--card, #141418); }
+.offer-body { display: grid; gap: 14px; align-content: center; }
+.offer-body h3 { font-size: clamp(24px, 2.4vw, 32px); }
+.offer-text { color: var(--soft); font-size: clamp(17px, 1.4vw, 19px); line-height: 1.6; white-space: pre-line; max-width: 56ch; }
+.offer-where { font-weight: 600; color: var(--accent); }
+.offer-venue, .offer-until { color: var(--muted); font-size: 15px; }
+.offer-venue a { color: var(--text); border-bottom: 1px solid var(--line-strong); }
+.offer-body .actions { margin-top: 6px; }
+.offer-band { padding-bottom: 0; }
+@media (max-width: 760px) {
+  .offer { grid-template-columns: 1fr; gap: 20px; }
+  .offer-img { max-width: 420px; }
+  .offer-body .actions .btn { flex: 1 1 100%; justify-content: center; }
+}

@@ -184,6 +184,45 @@ export async function heroSlides(lang, current, detail, fallbackImage) {
   return auto.length ? auto : fallbackImage ? [{ image: fallbackImage, title: '', href: '', status: '' }] : [];
 }
 
+// Offers (Work → Προσφορές, site "panorama"): active, started, not ended. The end date counts as a whole day, Athens time.
+// Cached for a minute because every page asks (the menu shows «Προσφορές» only when there is one).
+let offersCache = null;
+const todayAthens = () => {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Athens', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day}`;
+};
+export async function offers(lang = 'el') {
+  if (!offersCache || offersCache.expires < Date.now()) {
+    let rows = [];
+    try {
+      const qs = new URLSearchParams({ filter: 'site="panorama" && active=true', sort: 'sort,created', expand: 'image', perPage: '50' });
+      rows = (await getJson('/api/collections/offers/records?' + qs)).items || [];
+    } catch (e) {
+      if (/HTTP 404/.test(e?.message || '')) console.warn('[pocketbase] offers collection not created yet');
+      else { recordError(`offers: ${e?.message || e}`); if (offersCache) return pickOffers(offersCache.rows, lang); }
+    }
+    offersCache = { rows, expires: Date.now() + 60 * 1000 };
+  }
+  return pickOffers(offersCache.rows, lang);
+}
+function pickOffers(rows, lang) {
+  const t = todayAthens(), en = lang === 'en';
+  return rows
+    .filter((r) => (!r.starts || r.starts.slice(0, 10) <= t) && (!r.ends || r.ends.slice(0, 10) >= t))
+    .map((r) => ({
+      id: r.id,
+      image: mediaUrl(r.expand?.image),
+      alt: r.expand?.image?.alt || r.title || '',
+      title: (en ? r.title_en : r.title) || r.title || '',
+      text: (en ? r.text_en : r.text) || r.text || '',
+      where: (en ? r.where_en : r.where) || (en ? '' : r.where) || '',
+      link: validUrl(r.link),
+      button: (en ? r.button_en : r.button) || r.button || '',
+      ends: r.ends ? r.ends.slice(0, 10) : '',
+    }))
+    .filter((o) => o.image);
+}
+
 export async function health() {
   lastErrors.length = 0;
   const [venues, productions, runs] = await Promise.all([
