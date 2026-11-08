@@ -13,7 +13,7 @@ const homeItems = [...current, ...archive.filter((p) => p.featured)];
 // Hero: slides chosen in Work → «Hero αρχικής» (Panorama); otherwise current hero images, else the venue photo.
 const facade = await mediaById('h7tjyr00agl3133');
 const slides = await heroSlides(lang, current, R.detail, facade);
-// Work → Προσφορές: the first active offer gets a band under the hero.
+// Offers (src/data/offers.js): the first one gets a band under the hero.
 const [activeOffers, venue] = await Promise.all([offers(lang), venueInfo()]);
 const offer = activeOffers[0];
 ---
