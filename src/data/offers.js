@@ -6,8 +6,10 @@ export const OFFERS = [
   {
     image: '', // ← media record ID of 1080_combo_gjucb8mlcm.webp
     title: '', title_en: '',
-    text: '', text_en: '',
-    where: '', where_en: '', // empty → «Ισχύει μόνο στο ταμείο του Panorama.»
-    ends: '', // 'YYYY-MM-DD' (inclusive) or empty
+    text: 'Με ένα εισιτήριο επισκέπτεστε και τις 2 εκθέσεις, την ίδια ημέρα.\nΗ διάρκεια και των 2 επισκέψεων είναι περίπου 2 με 3 ώρες.',
+    text_en: 'One ticket gets you into both exhibitions on the same day.\nAllow about 2 to 3 hours for both visits.',
+    where: 'Το εισιτήριο είναι διαθέσιμο μόνο στα ταμεία του Panorama.',
+    where_en: 'The ticket is available only at the Panorama box office.',
+    ends: '2026-12-31', // inclusive
   },
 ];
